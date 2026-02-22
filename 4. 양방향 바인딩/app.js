@@ -2,17 +2,43 @@ const app = Vue.createApp({
   data() {
     return {
       counter: 0,
-      name: ''
+      name: '',
+      lastName: '',
+      fullName: '',
     };
   },
-  computed: { // 메소드가 아니라 데이터(속성)으로 취급되므로 HTML에서 사용 시 괄호를 붙이지 않음
-    fullName() { // 캐싱된 결과를 반환하는 계산된 속성 (Computed Property)
-      console.log('Running again...');
-      if (this.name === '') {
-        return '';
+  watch: {
+    // 해당 메소드는 name이 변경될 때마다 자동으로 실행됨.
+    name(value) {
+      if (value === '') {
+        this.fullName = '';
+        return;
       }
-      return this.name + ' ' + 'Test001';
+      // name이 변경될 때마다 그때그때 변경된 최신값을 value로 던지기 때문에 굳이 this.name이라 쓸 필요 없음
+      // this.fullName = this.name + ' ' + 'Test001';
+      this.fullName = value + ' ' + this.lastName;
+    },
+    // 인자를 2개 받을 수도 있음.
+    // name(newValue, oldValue) {
+    //   console.log('New Value: ' + newValue);
+    //   console.log('Old Value: ' + oldValue);
+    // },
+    lastName(value) {
+      if (value === '') {
+        this.fullName = '';
+        return;
+      }
+      this.fullName = this.name + ' ' + value;
     }
+  },
+  computed: { // 메소드가 아니라 데이터(속성)으로 취급되므로 HTML에서 사용 시 괄호를 붙이지 않음
+    // fullName() { // 캐싱된 결과를 반환하는 계산된 속성 (Computed Property)
+    //   console.log('Running again...');
+    //   if (this.name === '') {
+    //     return '';
+    //   }
+    //   return this.name + ' ' + 'Test001';
+    // }
   },
   // 그럼 대체 메소드를 언제 쓰느냐?
   // computed는 데이터 기반 "계산 값"이라는 것을 인지해야 한다.
