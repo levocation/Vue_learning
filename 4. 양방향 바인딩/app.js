@@ -5,6 +5,20 @@ const app = Vue.createApp({
       name: ''
     };
   },
+  computed: { // 메소드가 아니라 데이터(속성)으로 취급되므로 HTML에서 사용 시 괄호를 붙이지 않음
+    fullName() { // 캐싱된 결과를 반환하는 계산된 속성 (Computed Property)
+      console.log('Running again...');
+      if (this.name === '') {
+        return '';
+      }
+      return this.name + ' ' + 'Test001';
+    }
+  },
+  // 그럼 대체 메소드를 언제 쓰느냐?
+  // computed는 데이터 기반 "계산 값"이라는 것을 인지해야 한다.
+  // 1. computed는 인자를 받을 수 없지만, methods는 인자를 받을 수 있음.
+  // 2. computed는 이벤트 핸들러로 사용할 수 없음. (예: @click="fullName"은 불가능)
+  // 3. api 호출 등에 사용할 수 없음.
   methods: {
     outputFullName() {
       // Vue의 특성상 데이터가 변경되면 Template 전체를 재렌더링하기 때문에, 이 메서드가 실행될 때마다 콘솔에 'Running again...'이 출력됨.
