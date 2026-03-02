@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enteredGoalValue"/>
+      <button @click="addGoal">Add Goal</button>
+      <!-- v-if,v-else와 v-show의 차이점-->
+      <!-- v-if,v-else는 조건을 만족하지 않을 경우 DOM에서 완전히 제거되지만 -->
+      <!-- v-show는 CSS display 속성을 조작하여 보이거나 숨김 -->
+      <p v-show="goals.length === 0">No goals have been added yet - please start adding some!</p>
+      <ul v-show="goals.length > 0">
+        <li v-for="(goal, index) in goals" @click="removeGoal(index)">{{index + 1}}. {{ goal }}</li>
+      </ul>
+      <!-- vue에서 아래와 같이 작성할 경우, 0부터 9까지가 아니라 1부터 10까지 노출됨 -->
+      <!-- <ul>
+        <li v-for="num in 10">{{ num }}</li>
+      </ul> -->
+      <!-- <ul>
+        <li v-for="(value, key, index) in {name: 'QUOTIENT', age: 31}">{{ index + 1 }}. {{ key }}: {{ value }}</li>
+      </ul> -->
+    </section>
+  </body>
+</html>
